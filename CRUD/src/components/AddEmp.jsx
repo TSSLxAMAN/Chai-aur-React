@@ -1,47 +1,45 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addEmp } from '../features/employeeSlice'
-import { toast } from 'react-toastify'
-const AddEmp = () => {
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEmp } from '../features/employeeSlice';
+import { toggleTheme } from '../features/themeSlice';
+import { toast } from 'react-toastify';
 
-  const [name, setName] = useState("")
-  const [department, setDepartment] = useState("")
-  const [gender, setGender] = useState("")
-  const [salary, setSalary] = useState("")
-  const dispatch = useDispatch()
+const AddEmp = () => {
+  const [name, setName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [gender, setGender] = useState("");
+  const [salary, setSalary] = useState("");
+  
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme);
 
   function saveEmp() {
-
     const empData = {
       empName: name,
       empDep: department,
       empGender: gender,
       empSalary: salary,
-      empId: Date.now()
-    }
+      empId: Date.now(),
+    };
 
-    setName('')
-    setDepartment('')
-    setGender('')
-    setSalary('')
+    setName('');
+    setDepartment('');
+    setGender('');
+    setSalary('');
 
-    // console.log(empData);
-
-    dispatch(addEmp(empData))
-
-    toast("Employee added succesfully")
-
+    dispatch(addEmp(empData));
+    toast("Employee added successfully");
   }
 
   return (
-    <div className='container mx-auto p-6'>
-      <p className='font-semibold text-2xl mb-4 text-center'>Add New Employee</p>
-      <div className='bg-gray-900 text-white p-5 rounded-lg shadow-lg w-full md:w-1/2 mx-auto'>
+    <div className={`mx-auto p-6 ${theme.bgColor} h-screen`}>
+      <p className={`font-semibold text-2xl mb-4 text-center ${theme.textColor}`}>Add New Employee</p>
+      <div className={`p-5 rounded-lg shadow-lg w-full md:w-1/2 mx-auto ${theme.boxColor}`}>
         <div className='mb-3'>
           <label className='block text-lg'>Name</label>
           <input
             type='text'
-            className='border border-gray-600 px-3 py-2 rounded w-full bg-gray-800 text-white'
+            className={`border px-3 py-2 rounded w-full ${theme.border} ${theme.bgColor}`}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -49,7 +47,7 @@ const AddEmp = () => {
         <div className='mb-3'>
           <label className='block text-lg'>Department</label>
           <select
-            className='border border-gray-600 px-3 py-2 rounded w-full bg-gray-800 text-white'
+            className={`border px-3 py-2 rounded w-full ${theme.border} ${theme.bgColor}`}
             value={department}
             onChange={(e) => setDepartment(e.target.value)}>
             <option value=''>--Select--</option>
@@ -75,15 +73,15 @@ const AddEmp = () => {
           <label className='block text-lg'>Salary</label>
           <input
             type='text'
-            className='border border-gray-600 px-3 py-2 rounded w-full bg-gray-800 text-white'
+            className={`border px-3 py-2 rounded w-full ${theme.border} ${theme.bgColor}`}
             value={salary}
             onChange={(e) => setSalary(e.target.value)}
           />
         </div>
-        <button className='w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-white font-semibold cursor-pointer' onClick={saveEmp}>Add Employee</button>
+        <button className={`mt-4 w-full px-4 py-2 bg-gray-500 text-white rounded`} onClick={saveEmp}>Add Employee</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddEmp
+export default AddEmp;

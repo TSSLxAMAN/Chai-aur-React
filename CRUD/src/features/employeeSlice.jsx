@@ -4,7 +4,7 @@ export const employeeSlice = createSlice({
     name: 'empData',
     initialState: {
         data: JSON.parse(localStorage.getItem("Employee data")) || [],
-        singleData: ""
+        query: ""
     },
     reducers: {
         addEmp: (state, actions) => {
@@ -37,7 +37,7 @@ export const employeeSlice = createSlice({
                 };
                 localStorage.setItem("Employee data", JSON.stringify(state.data))
             }
-        }
+        },
 
     },
 })

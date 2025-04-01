@@ -1,10 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router"; // Fix import
+import { Navigate, NavLink, useNavigate } from "react-router"; // Fix import
 import Logo from "../assets/images/Logo.png"
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+import ThemeButton from "./ThemeButton";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/loginSlice";
 
-  // Function to close menu when clicking outside
+
+const Navbar = () => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const setNavTheme = useSelector(state => state.theme.navBarBgColor)
+  const setNavTextTheme = useSelector(state => state.theme.navBarTextColor)
+  const setnavBarSelectedBtnColor = useSelector(state => state.theme.navBarSelectedBtnColor)
+  const setnavBarSelectedBtnColorHover = useSelector(state => state.theme.navBarSelectedBtnColorHover)
+  const isLogin = useSelector(state => state.user.userLogin)
+  console.log(isLogin);
+  const loggedInUser = useSelector((state) => state.user.userLogin);
+
+  function handleLogout() {
+    dispatch(logout())
+    setTimeout(() => {
+      navigate("/login");
+    }, 0);
+  }
+
+  
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest("#mobile-menu") && !event.target.closest("#menu-button")) {
@@ -22,8 +45,8 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <nav className="bg-gray-900 text-white shadow-md">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className={`${setNavTheme} ${setNavTextTheme}`} >
+      <div className=" mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="text-lg font-bold">
           <NavLink to="/" className="font-semibold hover:text-gray-200 flex">
@@ -33,6 +56,7 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger Menu Button (Mobile) */}
+
         <button
           id="menu-button"
           className="block md:hidden text-white focus:outline-none"
@@ -53,7 +77,6 @@ const Navbar = () => {
             ></path>
           </svg>
         </button>
-
         {/* Mobile Menu (Sliding from Right) */}
         <div
           id="mobile-menu"
@@ -75,7 +98,35 @@ const Navbar = () => {
             <NavLink to="/addEmp" className="p-3 text-lg font-semibold" onClick={() => setIsMenuOpen(false)}>Add Employee</NavLink>
             <NavLink to="/editEmp" className="p-3 text-lg font-semibold" onClick={() => setIsMenuOpen(false)}>Edit Employee</NavLink>
             <NavLink to="/about" className="p-3 text-lg font-semibold" onClick={() => setIsMenuOpen(false)}>About</NavLink>
-            <NavLink to="/contact" className="p-3 text-lg font-semibold" onClick={() => setIsMenuOpen(false)}>Contact Us</NavLink>
+            {
+              isLogin &&
+              (<NavLink
+                to="/dashboard"
+                className="p-3 text-lg font-semibold"
+              >
+                Dashboard
+              </NavLink>
+              )
+            }
+
+            {
+              isLogin ?
+                (<NavLink
+                  to="/login"
+                  className="p-3 text-lg font-semibold"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </NavLink>)
+                :
+                (<NavLink
+                  to="/login"
+                  className="p-3 text-lg font-semibold"
+                >
+                  Login
+                </NavLink>)
+
+            }
           </div>
         </div>
 
@@ -84,7 +135,7 @@ const Navbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `p-2 font-semibold rounded ${isActive ? "bg-gray-300 text-gray-900" : "hover:bg-gray-300 hover:text-gray-900"}`
+              `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
             }
           >
             Home
@@ -93,7 +144,7 @@ const Navbar = () => {
           <NavLink
             to="/addEmp"
             className={({ isActive }) =>
-              `p-2 font-semibold rounded ${isActive ? "bg-gray-300 text-gray-900" : "hover:bg-gray-300 hover:text-gray-900"}`
+              `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
             }
           >
             Add Employee
@@ -102,7 +153,7 @@ const Navbar = () => {
           <NavLink
             to="/editEmp"
             className={({ isActive }) =>
-              `p-2 font-semibold rounded ${isActive ? "bg-gray-300 text-gray-900" : "hover:bg-gray-300 hover:text-gray-900"}`
+              `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
             }
           >
             Edit Employee
@@ -111,20 +162,50 @@ const Navbar = () => {
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              `p-2 font-semibold rounded ${isActive ? "bg-gray-300 text-gray-900" : "hover:bg-gray-300 hover:text-gray-900"}`
+              `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
             }
           >
             About
           </NavLink>
 
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              `p-2 font-semibold rounded ${isActive ? "bg-gray-300 text-gray-900" : "hover:bg-gray-300 hover:text-gray-900"}`
-            }
-          >
-            Contact Us
-          </NavLink>
+          {
+            isLogin &&
+            (<NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
+              }
+            >
+              Dashboard
+            </NavLink>
+            )
+          }
+
+          {
+            isLogin ?
+              (<NavLink
+                to="#"
+                className={({ isActive }) =>
+                  `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
+                }
+                onClick={handleLogout}
+              >
+                Logout
+              </NavLink>)
+              :
+              (<NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `p-2 font-semibold rounded ${isActive ? setnavBarSelectedBtnColor : setnavBarSelectedBtnColorHover}`
+                }
+              >
+                Login
+              </NavLink>)
+
+          }
+          <div className='col-span-1 flex justify-center items-center'>
+            <ThemeButton />
+          </div>
         </div>
 
       </div>
