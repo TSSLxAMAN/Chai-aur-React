@@ -431,22 +431,23 @@ const HomePage = () => {
   };
   const maxProfit = stocks.reduce((sum, stock) => {
     const highestHigh = stock.highestHigh || 0;
-    const open = stock.open || 0;
+    const open = stock.firstOpen || 0;  // Use firstOpen instead of open
     const quantity = stock.quantity || 0;
-
+    
     return sum + ((highestHigh - open) * quantity);
   }, 0);
-
+  
   const maxLoss = stocks.reduce((sum, stock) => {
-    const lowestLow = stock.lowestLow || 0;  // Ensure it's a valid number
-    const open = stock.open || 0;
+    const lowestLow = stock.lowestLow || 0;
+    const open = stock.firstOpen || 0;  // Use firstOpen instead of open
     const quantity = stock.quantity || 0;
-
-    return sum + ((open - lowestLow) * quantity);
+    
+    // This should be a negative number to represent a loss
+    return sum + ((lowestLow - open) * quantity);
   }, 0);
-
+  
   const actualProfit = stocks.reduce(
-    (sum, stock) => sum + ((stock.lastClose - stock.firstOpen) * stock.quantity),
+    (sum, stock) => sum + ((stock.lastClose - stock.firstOpen) * stock.quantity), 
     0
   );
 
@@ -481,7 +482,7 @@ const HomePage = () => {
               <ProfitLossCard
                 title="Maximum Profit"
                 value={maxProfit.toFixed(2)}
-                description="You can make"
+                description="You could make"
                 icon={Profit}
               />
             </div>
@@ -491,7 +492,7 @@ const HomePage = () => {
               <ProfitLossCard
                 title="Maximum Loss"
                 value={maxLoss.toFixed(2)}
-                description="You can make"
+                description="You could make"
                 icon={Loss}
               />
             </div>
@@ -499,7 +500,7 @@ const HomePage = () => {
             {/* Actual Profit */}
             <div className="lg:rounded-r-2xl bg-white rounded-b-2xl">
               <ProfitLossCard
-                title="Reality"
+                title="In reality"
                 value={actualProfit.toFixed(2)}
                 description="You made"
                 icon={Dollar}
