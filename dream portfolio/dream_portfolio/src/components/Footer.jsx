@@ -1,9 +1,39 @@
-import React from 'react'
-
+import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 const Footer = () => {
-  return (
-    <div>Footer</div>
-  )
-}
+  const currentYear = new Date().getFullYear();
 
-export default Footer
+  return (
+    <footer className="bg-green-700 text-white mt-auto">
+      <div className="container mx-auto px-4 py-1">
+        <div className="flex flex-col text-center">
+          <div className="text-sm text-green-100">
+            © {currentYear} Dream Portfolio. All rights reserved.
+          </div>
+          <div className="flex justify-center gap-4">
+            <a
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-green-200 transition-all"
+            >
+              <FontAwesomeIcon icon={faLinkedin} />
+            </a>
+            <a
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-green-200 transition-all"
+            >
+              <FontAwesomeIcon icon={faGithub} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

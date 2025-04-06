@@ -6,15 +6,19 @@ import { Outlet } from 'react-router-dom'
 const Layout = () => {
   return (
     <>
-    <nav>
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar */}
+      
       <Navbar/>
-    </nav>
-    <main>
-      <Outlet/>
-    </main>
-    <footer>
+
+      {/* Main Content */}
+      <main className="flex-1 container mx-auto p-4">
+        <Outlet/>
+      </main>
+
+      {/* Footer */}
       <Footer/>
-    </footer>
+    </div>
     </>
   )
 }

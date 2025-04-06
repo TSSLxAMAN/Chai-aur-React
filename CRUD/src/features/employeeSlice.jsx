@@ -13,7 +13,6 @@ export const employeeSlice = createSlice({
         },
 
         deleteEmp: (state, actions) => {
-            console.log(state.data)
             state.data = state.data.filter(emp => emp.empId !== actions.payload)
 
             localStorage.setItem("Employee data", JSON.stringify(state.data))

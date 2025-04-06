@@ -25,7 +25,6 @@ function App() {
   return (
     <>
       <RouterProvider router={route} />
-
     </>
   )
 }

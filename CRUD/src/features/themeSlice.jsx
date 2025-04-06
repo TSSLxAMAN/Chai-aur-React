@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Define themes as objects
 const lightTheme = {
     bgColor: "bg-white text-orange-500",
     textColor: "text-orange-500",

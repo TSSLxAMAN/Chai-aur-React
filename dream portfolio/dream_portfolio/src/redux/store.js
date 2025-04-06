@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import themeSlice from '../features/themeSlice'
+import favouriteSlice  from '../features/favrouiteSlice'
 export default configureStore({
     reducer: {
-       theme: themeSlice
+       favourite: favouriteSlice
     },
 })
