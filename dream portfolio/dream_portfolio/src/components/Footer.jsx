@@ -14,7 +14,7 @@ const Footer = () => {
           </div>
           <div className="flex justify-center gap-4">
             <a
-              href=""
+              href="https://www.linkedin.com/in/aman-kumar-verma-a7b360242/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-green-200 transition-all"
@@ -22,7 +22,7 @@ const Footer = () => {
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
             <a
-              href=""
+              href="https://github.com/TSSLxAMAN"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-green-200 transition-all"
