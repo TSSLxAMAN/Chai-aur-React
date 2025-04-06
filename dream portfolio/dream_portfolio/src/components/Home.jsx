@@ -318,7 +318,7 @@ const HomePage = () => {
     if (value >= 0 && value <= 100) {
       setCurrentStock({ ...currentStock, quantity: value });
     } else {
-      toast.warning("Exceding 100 limit")
+      toast.warning("Exceeding 100 limit")
     }
   };
 
