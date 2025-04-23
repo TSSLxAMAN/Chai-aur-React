@@ -366,15 +366,7 @@ const HomePage = () => {
           lowestLowDate = date.split("T")[0];
         }
       });
-      console.log(firstDay);
-      console.log(lastDay);
-      console.log(firstOpen);
-      console.log(lastClose);
-      console.log(highestHigh);
-      console.log(highestHighDate);
-      console.log(lowestLow);
-      console.log(lowestLowDate);
-
+      
       return {
         firstOpen,
         lastClose,
@@ -433,21 +425,21 @@ const HomePage = () => {
     const highestHigh = stock.highestHigh || 0;
     const open = stock.firstOpen || 0;  // Use firstOpen instead of open
     const quantity = stock.quantity || 0;
-    
+
     return sum + ((highestHigh - open) * quantity);
   }, 0);
-  
+
   const maxLoss = stocks.reduce((sum, stock) => {
     const lowestLow = stock.lowestLow || 0;
     const open = stock.firstOpen || 0;  // Use firstOpen instead of open
     const quantity = stock.quantity || 0;
-    
+
     // This should be a negative number to represent a loss
     return sum + ((lowestLow - open) * quantity);
   }, 0);
-  
+
   const actualProfit = stocks.reduce(
-    (sum, stock) => sum + ((stock.lastClose - stock.firstOpen) * stock.quantity), 
+    (sum, stock) => sum + ((stock.lastClose - stock.firstOpen) * stock.quantity),
     0
   );
 
@@ -470,198 +462,198 @@ const HomePage = () => {
   };
 
   return (
-      <div className="container mx-auto px-4 py-8 ">
-        <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-6">
-          <h2 className="text-3xl font-bold text-green-700 mb-3">Pick Your Stocks</h2>
-          <p className="text-gray-700 mb-3">
-            Select up to <span className="font-bold text-green-700">5 Nifty Fifty stocks</span>, set buy and sell dates, and calculate potential profit or loss.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-green-700 rounded-2xl">
-            {/* Maximum Profit */}
-            <div className="lg:rounded-l-2xl bg-white rounded-t-2xl">
-              <ProfitLossCard
-                title="Maximum Profit"
-                value={maxProfit.toFixed(2)}
-                description="You could make"
-                icon={Profit}
-              />
-            </div>
-
-            {/* Maximum Loss */}
-            <div className="lg:border-l lg:border-r border-green-700 bg-white">
-              <ProfitLossCard
-                title="Maximum Loss"
-                value={maxLoss.toFixed(2)}
-                description="You could make"
-                icon={Loss}
-              />
-            </div>
-
-            {/* Actual Profit */}
-            <div className="lg:rounded-r-2xl bg-white rounded-b-2xl">
-              <ProfitLossCard
-                title="In reality"
-                value={actualProfit.toFixed(2)}
-                description="You made"
-                icon={Dollar}
-              />
-            </div>
+    <div className="container mx-auto px-4 py-8 ">
+      <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-6">
+        <h2 className="text-3xl font-bold text-green-700 mb-3">Pick Your Stocks</h2>
+        <p className="text-gray-700 mb-3">
+          Select up to <span className="font-bold text-green-700">5 Nifty Fifty stocks</span>, set buy and sell dates, and calculate potential profit or loss.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-green-700 rounded-2xl">
+          {/* Maximum Profit */}
+          <div className="lg:rounded-l-2xl bg-white rounded-t-2xl">
+            <ProfitLossCard
+              title="Maximum Profit"
+              value={maxProfit.toFixed(2)}
+              description="You could make"
+              icon={Profit}
+            />
           </div>
 
-          {/* Stocks Section */}
-          <div className="mt-6 bg-white rounded-2xl border border-green-700 p-4">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-2xl font-bold text-green-700 mb-2">Select Stocks</h3>
-              <FontAwesomeIcon
-                icon={faHeart}
-                className={`cursor-pointer transition-all text-2xl ${isFavorite ? "text-red-600" : "text-gray-400"
-                  }`}
-                onClick={toggleFavorite}
-              />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {stocks.map((stock) => (
-                <div
-                  key={stock.id}
-                  className="flex flex-col justify-between  border bg-green-50 border-green-700 rounded-2xl p-2 shadow-lg"
-                >
-                  <div className="flex justify-end">
-                    {/* Delete Button */}
-                    <FontAwesomeIcon icon={faTrash} onClick={() => removeStock(stock.id)} className="text-gray-500 hover:text-red-900" />
-                  </div>
-                  {/* Stock Symbol with Logo (optional) */}
-                  <div className="flex justify-center items-center gap-2">
-                    <img
-                      src={stock.logo} // Replace dynamically based on stock symbol
-                      alt={stock.symbol}
-                      className="h-24 w-24 object-contain"
-                    />
-                  </div>
-                  <div>
-                  </div>
+          {/* Maximum Loss */}
+          <div className="lg:border-l lg:border-r border-green-700 bg-white">
+            <ProfitLossCard
+              title="Maximum Loss"
+              value={maxLoss.toFixed(2)}
+              description="You could make"
+              icon={Loss}
+            />
+          </div>
 
-                  {/* Stock Details (Aligned at Bottom) */}
-                  <div className="mt-auto text-xs text-green-700">
-                    <p className="text-lg font-bold text-green-800">{stock.symbol}</p>
-                    <p><span className="font-semibold text-xs">Quantity:</span> {stock.quantity}</p>
-                    <p><span className="font-semibold text-xs">Buying Date:</span> {stock.buyDate}</p>
-                    <p><span className="font-semibold text-xs">Selling Date:</span> {stock.sellDate}</p>
-                  </div>
-                </div>
-              ))}
-
-              {stocks.length < 5 && (
-                <div className={`${stocks.length === 0 ? "w-full flex-col justify-center items-center " : " flex-col justify-center items-center "}`}>
-                  <div className={`${stocks.length === 0 ? "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl" : "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl h-full"}`}>
-                    <button
-                      onClick={handleOpen}
-                      className="bg-green-600 hover:bg-green-700 text-white rounded-full p-3 mx-auto flex items-center justify-center"
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                    <p className="mt-1 text-green-600 font-semibold text-center">Add stock</p>
-                  </div>
-                </div>
-              )}
-            </div>
+          {/* Actual Profit */}
+          <div className="lg:rounded-r-2xl bg-white rounded-b-2xl">
+            <ProfitLossCard
+              title="In reality"
+              value={actualProfit.toFixed(2)}
+              description="You made"
+              icon={Dollar}
+            />
           </div>
         </div>
 
-        {/* Table section */}
-        <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-8">
-          <StockTable stocks={stocks} />
-        </div>
-
-        {/* Note  */}
-        <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-8">
-          <Note />
-        </div>
-
-        {/* Add Stock Modal */}
-        <Modal
-          open={modalOpen}
-          onClose={handleClose}
-          aria-labelledby="add-stock-modal"
-        >
-          <Box sx={modalStyle}>
-            <Typography id="modal-title" variant="h6" component="h2" sx={{ color: '#166534', fontWeight: 'bold' }}>
-              Add a Stock
-            </Typography>
-
-            <TextField
-              select
-              label="Select Stock"
-              name="symbol"
-              value={currentStock.symbol}
-              onChange={handleInputChange}
-              fullWidth
-              margin="normal"
-              variant="outlined"
-            >
-              {niftyFiftyStocks.map((option) => (
-                <MenuItem key={option.symbol} value={option.symbol}>
-                  {option.symbol}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <div className="mt-4">
-              <Input
-                placeholder="Enter quantity (max. 100)"
-                value={currentStock.quantity}
-                onChange={handleQuantityChange}
-                type="number"
-                className="p-3 text-black"
-                inputprops={{ min: 0, max: 100 }}
-              />
-            </div>
-
-            <div className="mt-4">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Buying Date"
-                  className="w-full"
-                  value={currentStock.buyDate}
-                  onChange={(date) => handleDateChange("buyDate", date)}
-                  minDate={dayjs("2003-01-01")}
-                  maxDate={dayjs()}
-                />
-              </LocalizationProvider>
-            </div>
-
-            <div className="mt-4">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Selling Date"
-                  className="w-full"
-                  value={currentStock.sellDate}
-                  minDate={currentStock.buyDate}
-                  onChange={(date) => handleDateChange("sellDate", date)}
-                  disabled={!currentStock.buyDate}
-                  maxDate={dayjs()}
-                />
-              </LocalizationProvider>
-            </div>
-
-            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-              <Button onClick={handleClose} sx={{ color: '#166534' }}>
-                Cancel
-              </Button>
-              <Button
-                onClick={addStock}
-                variant="contained"
-                sx={{
-                  bgcolor: '#166534',
-                  '&:hover': { bgcolor: '#14532d' }
-                }}
-                disabled={!currentStock.symbol || !currentStock.buyDate || !currentStock.sellDate}
+        {/* Stocks Section */}
+        <div className="mt-6 bg-white rounded-2xl border border-green-700 p-4">
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-2xl font-bold text-green-700 mb-2">Select Stocks</h3>
+            <FontAwesomeIcon
+              icon={faHeart}
+              className={`cursor-pointer transition-all text-2xl ${isFavorite ? "text-red-600" : "text-gray-400"
+                }`}
+              onClick={toggleFavorite}
+            />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {stocks.map((stock) => (
+              <div
+                key={stock.id}
+                className="flex flex-col justify-between  border bg-green-50 border-green-700 rounded-2xl p-2 shadow-lg"
               >
-                Add Stock
-              </Button>
-            </Box>
-          </Box>
-        </Modal>
+                <div className="flex justify-end">
+                  {/* Delete Button */}
+                  <FontAwesomeIcon icon={faTrash} onClick={() => removeStock(stock.id)} className="text-gray-500 hover:text-red-900" />
+                </div>
+                {/* Stock Symbol with Logo (optional) */}
+                <div className="flex justify-center items-center gap-2">
+                  <img
+                    src={stock.logo} // Replace dynamically based on stock symbol
+                    alt={stock.symbol}
+                    className="h-24 w-24 object-contain"
+                  />
+                </div>
+                <div>
+                </div>
+
+                {/* Stock Details (Aligned at Bottom) */}
+                <div className="mt-auto text-xs text-green-700">
+                  <p className="text-lg font-bold text-green-800">{stock.symbol}</p>
+                  <p><span className="font-semibold text-xs">Quantity:</span> {stock.quantity}</p>
+                  <p><span className="font-semibold text-xs">Buying Date:</span> {stock.buyDate}</p>
+                  <p><span className="font-semibold text-xs">Selling Date:</span> {stock.sellDate}</p>
+                </div>
+              </div>
+            ))}
+
+            {stocks.length < 5 && (
+              <div className={`${stocks.length === 0 ? "w-full flex-col justify-center items-center " : " flex-col justify-center items-center "}`}>
+                <div className={`${stocks.length === 0 ? "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl" : "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl h-full"}`}>
+                  <button
+                    onClick={handleOpen}
+                    className="bg-green-600 hover:bg-green-700 text-white rounded-full p-3 mx-auto flex items-center justify-center"
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                  <p className="mt-1 text-green-600 font-semibold text-center">Add stock</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+
+      {/* Table section */}
+      <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-8">
+        <StockTable stocks={stocks} />
+      </div>
+
+      {/* Note  */}
+      <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-8">
+        <Note />
+      </div>
+
+      {/* Add Stock Modal */}
+      <Modal
+        open={modalOpen}
+        onClose={handleClose}
+        aria-labelledby="add-stock-modal"
+      >
+        <Box sx={modalStyle}>
+          <Typography id="modal-title" variant="h6" component="h2" sx={{ color: '#166534', fontWeight: 'bold' }}>
+            Add a Stock
+          </Typography>
+
+          <TextField
+            select
+            label="Select Stock"
+            name="symbol"
+            value={currentStock.symbol}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            variant="outlined"
+          >
+            {niftyFiftyStocks.map((option) => (
+              <MenuItem key={option.symbol} value={option.symbol}>
+                {option.symbol}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <div className="mt-4">
+            <Input
+              placeholder="Enter quantity (max. 100)"
+              value={currentStock.quantity}
+              onChange={handleQuantityChange}
+              type="number"
+              className="p-3 text-black"
+              inputprops={{ min: 0, max: 100 }}
+            />
+          </div>
+
+          <div className="mt-4">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Buying Date"
+                className="w-full"
+                value={currentStock.buyDate}
+                onChange={(date) => handleDateChange("buyDate", date)}
+                minDate={dayjs("2003-01-01")}
+                maxDate={dayjs()}
+              />
+              </LocalizationProvider>
+          </div>
+
+          <div className="mt-4">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Selling Date"
+                className="w-full"
+                value={currentStock.sellDate}
+                minDate={currentStock.buyDate}
+                onChange={(date) => handleDateChange("sellDate", date)}
+                disabled={!currentStock.buyDate}
+                maxDate={dayjs()}
+              />
+            </LocalizationProvider>
+          </div>
+
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+            <Button onClick={handleClose} sx={{ color: '#166534' }}>
+              Cancel
+            </Button>
+            <Button
+              onClick={addStock}
+              variant="contained"
+              sx={{
+                bgcolor: '#166534',
+                '&:hover': { bgcolor: '#14532d' }
+              }}
+              disabled={!currentStock.symbol || !currentStock.buyDate || !currentStock.sellDate}
+            >
+              Add Stock
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+    </div>
   );
 };
 
