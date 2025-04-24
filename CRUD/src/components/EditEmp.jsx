@@ -77,7 +77,7 @@ const EditEmp = () => {
   };
 
   return (
-    <div className={`mx-auto p-6 h-screen${themeBgColor} ${themeTextColor}`}>
+    <div className={`mx-auto p-6 h-screen ${themeBgColor} ${themeTextColor}`}>
       <p className="font-semibold text-2xl mb-4">All Employee List</p>
 
       {empList.length > 0 ? (
