@@ -12,7 +12,7 @@ const Home = () => {
   const theme = useSelector(state => state.theme.bgColor)
   const border = useSelector(state => state.theme.border)
   const boxColor = useSelector(state => state.theme.boxColor)
-  
+
   const [query, setQuery] = useState("")
   const [result, setResult] = useState([])
   const [filter, setFilter] = useState(null)
@@ -30,7 +30,7 @@ const Home = () => {
       return;
     }
     const found = empList.filter((q) => q.empName.toLowerCase().includes(query.toLowerCase()));
-    setResult(found || "No employee found");
+    setResult(found.length > 0 ? found : null);
   }
 
   function filterEmp() {
@@ -61,7 +61,7 @@ const Home = () => {
   useEffect(() => {
     filterEmp()
     search()
-  }, [accounts, computer, sales, marketing, manufacturing, salarySlider,query])
+  }, [accounts, computer, sales, marketing, manufacturing, salarySlider, query])
   console.log("accounts", accounts);
 
   return (
@@ -71,7 +71,7 @@ const Home = () => {
         <input type="text" className={`w-full p-2 font-semibold ${border}`} placeholder='Search..'
           value={query}
           onChange={(e) => (setQuery(e.target.value))}
-          style={{outline:"none"}}
+          style={{ outline: "none" }}
         />
       </div>
       <div className='grid grid-cols-12 gap-2'>
@@ -141,9 +141,9 @@ const Home = () => {
           <button className='w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-white font-semibold cursor-pointer' onClick={resetAll} >Reset Filter</button>
         </div>
         <div className={`col-span-12 md:col-span-9 p-4 ${boxColor}`}>
-          {result.length > 0 ? (
+          {result && result.length > 0 ? (
             <TableComponent data={result} />
-          ) : filter !== null && filter.length > 0 ? (
+          ) : filter && filter.length > 0 ? (
             <TableComponent data={filter} />
           ) : (
             <div className='flex justify-center items-center h-full'>
