@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faHeart } from '@fortawesome/free-solid-svg-icons';
 import Profit from '../assets/profit.png';
@@ -366,7 +366,7 @@ const HomePage = () => {
           lowestLowDate = date.split("T")[0];
         }
       });
-      
+
       return {
         firstOpen,
         lastClose,
@@ -418,9 +418,10 @@ const HomePage = () => {
     }
   };
 
-  const removeStock = (id) => {
-    setStocks(stocks.filter(stock => stock.id !== id));
-  };
+  const removeStock = useCallback((id) => {
+    setStocks((prevStocks) => prevStocks.filter((stock) => stock.id !== id));
+  }, []);
+
   const maxProfit = stocks.reduce((sum, stock) => {
     const highestHigh = stock.highestHigh || 0;
     const open = stock.firstOpen || 0;  // Use firstOpen instead of open
@@ -524,7 +525,7 @@ const HomePage = () => {
                 {/* Stock Symbol with Logo (optional) */}
                 <div className="flex justify-center items-center gap-2">
                   <img
-                    src={stock.logo} // Replace dynamically based on stock symbol
+                    src={stock.logo} loading="lazy"
                     alt={stock.symbol}
                     className="h-24 w-24 object-contain"
                   />
@@ -618,7 +619,7 @@ const HomePage = () => {
                 minDate={dayjs("2003-01-01")}
                 maxDate={dayjs()}
               />
-              </LocalizationProvider>
+            </LocalizationProvider>
           </div>
 
           <div className="mt-4">

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-const StockTable = ({ stocks }) => {
+const StockTable = memo(({ stocks }) => {
   return (
     <div className="overflow-hidden rounded-xl border border-green-700 shadow-lg">
       <div className="w-full overflow-x-auto">
@@ -47,6 +47,6 @@ const StockTable = ({ stocks }) => {
       </div>
     </div>
   );
-};
+});
 
 export default StockTable;

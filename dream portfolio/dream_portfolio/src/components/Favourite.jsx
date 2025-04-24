@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector } from 'react-redux';
 import SmallProfitLossCard from "./SmallProfitLossCard";
 import Profit from '../assets/profit.png';
@@ -13,10 +13,11 @@ import { toast } from "react-toastify";
 const Favourite = () => {
   const dispatch = useDispatch()
   const favouriteStocks = useSelector(state => state.favourite.dataFav);
-  function handelRemoveFav(stockInfo) {
-    dispatch(removeFav(stockInfo))
-    toast.success("Removed from Fav")
-  }
+
+  const handelRemoveFav = useCallback((stockInfo) => {
+    dispatch(removeFav(stockInfo));
+    toast.success("Removed from Fav");
+  }, [dispatch]);
   return (
     <>
       <div className="container mx-auto px-4 py-8">
@@ -62,6 +63,7 @@ const Favourite = () => {
                               <img
                                 src={stock.logo}
                                 alt={stock.symbol}
+                                loading="lazy"
                                 className="h-20 w-20 object-contain"
                               />
                             </div>

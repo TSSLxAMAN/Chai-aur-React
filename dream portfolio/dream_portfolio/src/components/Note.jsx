@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-const Note = () => {
+const Note = memo(() => {
     return (
         <div className='overflow-hidden rounded-xl border border-green-700 shadow-lg p-6'>
 
@@ -11,6 +11,6 @@ const Note = () => {
 
         </div>
     )
-}
+});
 
 export default Note     

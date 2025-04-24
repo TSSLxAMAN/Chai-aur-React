@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import ThemeButton from "./ThemeButton";
 import Logo from '../assets/Logo.png'
 
 const Navbar = () => {
@@ -11,7 +10,7 @@ const Navbar = () => {
     <nav className="bg-green-700 p-4 flex justify-between items-center shadow-lg">
       <div className="flex items-center gap-3">
         <div className="w-8 h-8">
-          <img src={Logo} alt="logo" height={32} width={32} />
+          <img src={Logo} alt="logo" loading="lazy" height={32} width={32} />
         </div>
         <h1 className="text-2xl font-bold tracking-wide text-white">DREAM PORTFOLIO</h1>
       </div>

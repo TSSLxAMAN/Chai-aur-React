@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-const ProfitLossCard = ({ title, value, description, icon }) => {
+const ProfitLossCard = memo(({ title, value, description, icon }) => {
   return (
     <div className="m-4 p-4 rounded-2xl bg-green-100">
       <div className="flex justify-end">
@@ -17,6 +17,6 @@ const ProfitLossCard = ({ title, value, description, icon }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProfitLossCard;
