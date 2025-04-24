@@ -507,7 +507,7 @@ const HomePage = () => {
             <h3 className="text-2xl font-bold text-green-700 mb-2">Select Stocks</h3>
             <FontAwesomeIcon
               icon={faHeart}
-              className={`cursor-pointer transition-all text-2xl ${isFavorite ? "text-red-600" : "text-gray-400"
+              className={`cursor-pointer transition-all text-2xl ${isFavorite ? "text-red-700" : "text-gray-400"
                 }`}
               onClick={toggleFavorite}
             />
@@ -545,14 +545,14 @@ const HomePage = () => {
 
             {stocks.length < 5 && (
               <div className={`${stocks.length === 0 ? "w-full flex-col justify-center items-center " : " flex-col justify-center items-center "}`}>
-                <div className={`${stocks.length === 0 ? "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl" : "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl h-full"}`}>
+                <div className={`${stocks.length === 0 ? "border-dotted border-2 border-green-700 py-16 px-8 rounded-2xl" : "border-dotted border-2 border-green-700 py-16 px-8 rounded-2xl h-full"}`}>
                   <button
                     onClick={handleOpen}
-                    className="bg-green-600 hover:bg-green-700 text-white rounded-full p-3 mx-auto flex items-center justify-center" aria-label="Add stock"
+                    className="bg-green-700 hover:bg-green-700 text-white rounded-full p-3 mx-auto flex items-center justify-center" aria-label="Add stock"
                   >
                     <FontAwesomeIcon icon={faPlus} />
                   </button>
-                  <p className="mt-1 text-green-600 font-semibold text-center">Add stock</p>
+                  <p className="mt-1 text-green-700 font-semibold text-center">Add stock</p>
                 </div>
               </div>
             )}
