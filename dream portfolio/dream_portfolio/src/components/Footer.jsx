@@ -17,6 +17,7 @@ const Footer = memo(() => {
               href="https://www.linkedin.com/in/aman-kumar-verma-a7b360242/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Aman Kumar Verma LinkedIn Profile"
               className="text-white hover:text-green-200 transition-all"
             >
               <FontAwesomeIcon icon={faLinkedin} />
@@ -25,6 +26,7 @@ const Footer = memo(() => {
               href="https://github.com/TSSLxAMAN"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Aman Kumar Verma github Profile"
               className="text-white hover:text-green-200 transition-all"
             >
               <FontAwesomeIcon icon={faGithub} />

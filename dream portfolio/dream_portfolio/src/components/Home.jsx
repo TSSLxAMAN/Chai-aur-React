@@ -548,7 +548,7 @@ const HomePage = () => {
                 <div className={`${stocks.length === 0 ? "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl" : "border-dotted border-2 border-green-600 py-16 px-8 rounded-2xl h-full"}`}>
                   <button
                     onClick={handleOpen}
-                    className="bg-green-600 hover:bg-green-700 text-white rounded-full p-3 mx-auto flex items-center justify-center"
+                    className="bg-green-600 hover:bg-green-700 text-white rounded-full p-3 mx-auto flex items-center justify-center" aria-label="Add stock"
                   >
                     <FontAwesomeIcon icon={faPlus} />
                   </button>

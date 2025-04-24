@@ -7,16 +7,16 @@ const StockTable = memo(({ stocks }) => {
         <table className="min-w-full">
           <thead className="bg-green-100">
             <tr className="text-left">
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Symbol</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">ISIN Code</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Buy Date</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Sell Date</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">First Open</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Last Close</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Highest High</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Date (High)</th>
-              <th className="px-4 py-2 border-b border-r border-green-700 text-green-600 text-sm font-medium">Lowest Low</th>
-              <th className="px-4 py-2 border-b border-green-700 text-green-600 text-sm font-medium">Date (Low)</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Symbol</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">ISIN Code</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Buy Date</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Sell Date</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">First Open</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Last Close</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Highest High</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Date (High)</th>
+              <th className="px-4 py-2 border-b border-r border-green-700 text-green-700 text-sm font-semibold">Lowest Low</th>
+              <th className="px-4 py-2 border-b border-green-700 text-green-700 text-sm font-semibold">Date (Low)</th>
             </tr>
           </thead>
           <tbody>
@@ -27,11 +27,11 @@ const StockTable = memo(({ stocks }) => {
                   <td className="px-4 py-2 border-b border-r border-green-700 text-sm">{stock.isin_code}</td>
                   <td className="px-4 py-2 border-b border-r border-green-700 text-sm">{stock.buyDate}</td>
                   <td className="px-4 py-2 border-b border-r border-green-700 text-sm">{stock.sellDate}</td>
-                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-green-600">{stock.firstOpen}</td>
-                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-red-600">{stock.lastClose}</td>
-                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-blue-600">{stock.highestHigh}</td>
+                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-green-700">{stock.firstOpen}</td>
+                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-red-700">{stock.lastClose}</td>
+                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-blue-700">{stock.highestHigh}</td>
                   <td className="px-4 py-2 border-b border-r border-green-700 text-sm">{stock.highestHighDate}</td>
-                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-orange-600">{stock.lowestLow}</td>
+                  <td className="px-4 py-2 border-b border-r border-green-700 text-sm font-bold text-orange-700">{stock.lowestLow}</td>
                   <td className="px-4 py-2 border-b border-green-700 text-sm">{stock.lowestLowDate}</td>
                 </tr>
               ))
