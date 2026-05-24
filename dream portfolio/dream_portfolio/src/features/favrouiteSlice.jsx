@@ -12,7 +12,7 @@ export const favouriteSlice = createSlice({
         },
 
         removeFav: (state, actions) => {
-            state.dataFav = state.dataFav.filter((stock) => stock.id !== actions.payload.id);
+            state.dataFav = state.dataFav.filter((_, idx) => idx !== actions.payload);
             localStorage.setItem("Stocks", JSON.stringify(state.dataFav));
         }
     },

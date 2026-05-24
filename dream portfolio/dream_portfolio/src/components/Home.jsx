@@ -24,7 +24,14 @@ import { addFav } from "../features/favrouiteSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch()
-  const [stocks, setStocks] = useState([]);
+  const [stocks, setStocks] = useState(() => {
+    try {
+      const saved = localStorage.getItem("homeStocks");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [modalOpen, setModalOpen] = useState(false);
   const [currentStock, setCurrentStock] = useState({
     symbol: "",
@@ -384,7 +391,7 @@ const HomePage = () => {
   };
 
   const addStock = async () => {
-    if (stocks.length < 5 && currentStock.symbol && currentStock.buyDate && currentStock.sellDate) {
+    if (currentStock.symbol && currentStock.buyDate && currentStock.sellDate) {
       const formattedBuyDate = dayjs(currentStock.buyDate).format('YYYY-MM-DD');
       const formattedSellDate = dayjs(currentStock.sellDate).format('YYYY-MM-DD');
       const logoURL = `https://logo.clearbit.com/${currentStock.symbol.toLowerCase()}.com`;
@@ -445,6 +452,10 @@ const HomePage = () => {
   );
 
   useEffect(() => {
+    localStorage.setItem("homeStocks", JSON.stringify(stocks));
+  }, [stocks]);
+
+  useEffect(() => {
     if (!modalOpen) {
       setCurrentStock({ symbol: "", buyDate: null, sellDate: null, quantity: "" });
     }
@@ -463,11 +474,46 @@ const HomePage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 ">
-      <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-6">
-        <h2 className="text-3xl font-bold text-green-700 mb-3">Pick Your Stocks</h2>
-        <p className="text-gray-700 mb-3">
-          Select up to <span className="font-bold text-green-700">5 Nifty Fifty stocks</span>, set buy and sell dates, and calculate potential profit or loss.
+    <div className="container mx-auto px-4 py-8">
+
+      {/* Hero Section */}
+      <div className="text-center py-14 mb-4">
+        <div className="inline-flex items-center gap-2 bg-green-100 border border-green-300 text-green-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wide uppercase">
+          <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>
+          Powered by Upstox Live Market Data
+        </div>
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 leading-[1.1]">
+          <span className="text-green-900">Simulate Your</span>{" "}
+          <span className="gradient-text">Stock Journey</span>
+        </h1>
+        <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8">
+          Pick any <span className="font-semibold text-green-700">Nifty 50 stock</span>, set a buy &amp; sell date range, and instantly see your
+          maximum potential gain, worst-case loss, and real-world outcome — no account needed.
+        </p>
+        <div className="flex flex-wrap gap-6 justify-center text-sm text-gray-400 font-medium">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>All 50 Nifty stocks</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>Real historical OHLC data</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>Unlimited portfolio size</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>Save to Favourites</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-sm border border-green-100 p-6 mb-6">
+        <h2 className="text-2xl font-bold text-green-800 mb-1">Pick Your Stocks</h2>
+        <p className="text-sm text-gray-500 mb-4">
+          Select any number of Nifty 50 stocks, set buy and sell dates, and calculate potential profit or loss.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-green-700 rounded-2xl">
           {/* Maximum Profit */}
@@ -543,8 +589,7 @@ const HomePage = () => {
               </div>
             ))}
 
-            {stocks.length < 5 && (
-              <div className={`${stocks.length === 0 ? "w-full flex-col justify-center items-center " : " flex-col justify-center items-center "}`}>
+            <div className={`${stocks.length === 0 ? "w-full flex-col justify-center items-center " : " flex-col justify-center items-center "}`}>
                 <div className={`${stocks.length === 0 ? "border-dotted border-2 border-green-700 py-16 px-8 rounded-2xl" : "border-dotted border-2 border-green-700 py-16 px-8 rounded-2xl h-full"}`}>
                   <button
                     onClick={handleOpen}
@@ -555,13 +600,13 @@ const HomePage = () => {
                   <p className="mt-1 text-green-700 font-semibold text-center">Add stock</p>
                 </div>
               </div>
-            )}
           </div>
         </div>
       </div>
 
       {/* Table section */}
       <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-8">
+        <h3 className="text-2xl font-bold text-green-700 mb-2">Detail Table</h3>
         <StockTable stocks={stocks} />
       </div>
 

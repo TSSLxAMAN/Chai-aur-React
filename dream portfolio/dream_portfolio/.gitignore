@@ -1,3 +1,7 @@
+# Generated / tool output
+_temp/
+stats.html
+
 # Logs
 logs
 *.log

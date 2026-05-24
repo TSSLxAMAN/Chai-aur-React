@@ -1,0 +1,5 @@
+# Generated / tool output — not part of the app
+_temp/
+
+# Claude Code settings
+.claude/

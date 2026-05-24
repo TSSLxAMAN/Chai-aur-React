@@ -7,19 +7,21 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-green-700 p-4 flex justify-between items-center shadow-lg">
+    <nav className="sticky top-0 z-50 bg-green-800/95 backdrop-blur-md px-6 py-3 flex justify-between items-center shadow-lg border-b border-green-700/50">
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8">
-          <img src={Logo} alt="logo" loading="lazy" height={32} width={32} />
+        <div className="w-9 h-9 rounded-xl overflow-hidden ring-2 ring-green-500/40 shadow-sm">
+          <img src={Logo} alt="logo" loading="lazy" height={36} width={36} className="object-cover" />
         </div>
-        <h1 className="text-2xl font-bold tracking-wide text-white">DREAM PORTFOLIO</h1>
+        <div className="flex flex-col leading-none">
+          <h1 className="text-lg font-bold tracking-widest text-white uppercase">Dream Portfolio</h1>
+          <span className="text-[10px] text-green-300 tracking-wider font-medium">Nifty 50 Simulator</span>
+        </div>
       </div>
-      <div className="hidden md:flex gap-6 ml-auto pe-6">
+      <div className="hidden md:flex gap-2 ml-auto">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `px-5 py-2 rounded text-lg transition-all font-semibold bg--800 ${isActive ? "bg-green-900 text-white" : "bg-green-800 hover:bg-green-900 text-white"
-            }`
+            `px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive ? "bg-green-600 text-white shadow-sm" : "text-green-100 hover:bg-green-700 hover:text-white"}`
           }
         >
           Home
@@ -27,11 +29,10 @@ const Navbar = () => {
         <NavLink
           to="/fav"
           className={({ isActive }) =>
-            `px-5 py-2 rounded text-lg transition-all font-semibold bg-green-800 ${isActive ? "bg-green-900 text-white" : "bg-green-800 hover:bg-green-900 text-white"
-            }`
+            `px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive ? "bg-green-600 text-white shadow-sm" : "text-green-100 hover:bg-green-700 hover:text-white"}`
           }
         >
-          Favourite
+          Favourites
         </NavLink>
       </div>
 
@@ -78,12 +79,11 @@ const Navbar = () => {
       {isMenuOpen && (
         <div
           id="mobile-menu"
-          className="absolute top-16 left-0 w-full flex flex-col gap-4 p-4 shadow-md  bg-green-700">
+          className="absolute top-full left-0 w-full flex flex-col gap-2 p-4 shadow-xl bg-green-800/97 backdrop-blur-md border-t border-green-700/50">
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `px-5 py-3 rounded text-lg transition-all font-semibold bg-green-800 ${isActive ? "bg-green-900 text-white" : "bg-green-800 hover:bg-green-900 text-white"
-              }`
+              `px-5 py-3 rounded-lg text-sm font-semibold transition-all ${isActive ? "bg-green-600 text-white" : "text-green-100 hover:bg-green-700"}`
             }
             onClick={() => setIsMenuOpen(false)}
           >
@@ -92,12 +92,11 @@ const Navbar = () => {
           <NavLink
             to="/fav"
             className={({ isActive }) =>
-              `px-5 py-3 rounded text-lg transition-all font-semibold bg-green-800 ${isActive ? "bg-green-900 text-white" : "bg-green-800 hover:bg-green-900 text-white"
-              }`
+              `px-5 py-3 rounded-lg text-sm font-semibold transition-all ${isActive ? "bg-green-600 text-white" : "text-green-100 hover:bg-green-700"}`
             }
             onClick={() => setIsMenuOpen(false)}
           >
-            Favourite
+            Favourites
           </NavLink>
         </div>
       )}
