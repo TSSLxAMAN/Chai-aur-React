@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from '../assets/Logo.png'
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleClickOutside = (e) => {
+      const button = document.getElementById("menu-button");
+      if (menuRef.current && !menuRef.current.contains(e.target) && !button?.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen]);
 
   return (
     <nav className="sticky top-0 z-50 bg-green-800/95 backdrop-blur-md px-6 py-3 flex justify-between items-center shadow-lg border-b border-green-700/50">
@@ -43,34 +55,12 @@ const Navbar = () => {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
         </button>
@@ -78,8 +68,10 @@ const Navbar = () => {
 
       {isMenuOpen && (
         <div
+          ref={menuRef}
           id="mobile-menu"
-          className="absolute top-full left-0 w-full flex flex-col gap-2 p-4 shadow-xl bg-green-800/97 backdrop-blur-md border-t border-green-700/50">
+          className="absolute top-full left-0 w-full flex flex-col gap-2 p-4 shadow-xl bg-green-800/97 backdrop-blur-md border-t border-green-700/50"
+        >
           <NavLink
             to="/"
             className={({ isActive }) =>
